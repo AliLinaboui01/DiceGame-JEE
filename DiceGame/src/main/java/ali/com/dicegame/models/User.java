@@ -6,6 +6,9 @@ public class User {
     private String password;
     private double score;
     private double bestScore;
+    private boolean endGame = false;
+
+
 
     public User() {
     }
@@ -57,4 +60,14 @@ public class User {
     public void setBestScore(double bestScore) {
         this.bestScore = bestScore;
     }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
+
 }
