@@ -19,12 +19,12 @@ public class RestartGame extends HttpServlet {
 
         GameState gameState = (GameState) session.getAttribute("gameState");
         if (gameState != null ) {
-            gameState.reinit();
-            session.setAttribute("gameState", gameState);
+            gameState.restart();
+            System.out.println("restart here ");
+
         }
-
+        session.setAttribute("old_dice", new HashMap<>());
         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request, response);
-
         return;
     }
 

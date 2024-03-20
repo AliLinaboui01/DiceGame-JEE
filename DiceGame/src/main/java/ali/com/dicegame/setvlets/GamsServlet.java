@@ -27,7 +27,7 @@ public class GamsServlet extends HttpServlet {
         GameContextManagement gameContext = GameContextManagement.getInstance(getServletContext());
         // check if the game is finish
         if (user.isEndGame()) {
-//            is game over
+            //is game over
             if (!gameState.isGameOver()) {
                 // set the best score by comparing between last score and the last best score
                 if (user.getScore() > user.getBestScore()) {
@@ -37,6 +37,8 @@ public class GamsServlet extends HttpServlet {
                 gameState.setGameOver(true);
             }
             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+            // end
+            return;
         } else {
             Random random = new Random();
             // generate the random value of the dice
@@ -54,9 +56,8 @@ public class GamsServlet extends HttpServlet {
             // here I want  to check if the number of dice is 1 , 2 or 3
             if (diceNumber >= 1 && diceNumber <= 3) {
                 // if the session is not null, so I can check the condition of repetition of dice number
-                if (gameState.getMyMap() != null) {
-//                    HashMap<Integer, Integer> sessionMap = (HashMap<Integer, Integer>) session.getAttribute("old_dice");
-                    HashMap<Integer, Integer> sessionMap = gameState.getMyMap();
+                if (session.getAttribute("old_dice") != null) {
+                    HashMap<Integer, Integer> sessionMap = (HashMap<Integer, Integer>) session.getAttribute("old_dice");
                         // check the condition of repetition of dice number
                     for (Map.Entry<Integer,Integer> entry : sessionMap.entrySet()){
                         if (diceNumber == entry.getKey()){
@@ -67,6 +68,7 @@ public class GamsServlet extends HttpServlet {
                             gameContext.updateScore(user);
                             user.setEndGame(true);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                            return;
                         }
                         //if the key is 1 and value is 6 , so end game and return a -1 score
                         else if (entry.getKey()==1 && entry.getValue()==6) {
@@ -76,6 +78,7 @@ public class GamsServlet extends HttpServlet {
                             System.out.println("game over and score 0");
                             user.setEndGame(true);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                            return;
                         }
                     }
 
@@ -88,7 +91,7 @@ public class GamsServlet extends HttpServlet {
                         int one = sessionMap.get(1);
                         int two = sessionMap.get(2);
                         int three = sessionMap.get(3);
-                        if (one < two && one < three) {
+                        if (one < two && two < three) {
                             int score = one + two + three;
                             user.setScore(score);
                             gameContext.updateScore(user);
@@ -98,15 +101,16 @@ public class GamsServlet extends HttpServlet {
                         // one < two && one < three is not verified
                         else {
                             user.setScore(0);
+                            gameState.addMessage(new Message("one < two && two < three is not verified score(0)", Message.INFO));
                             gameState.getUser().setScore(0);
                             gameContext.updateScore(user);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                            return;
                         }
                     } else {
                         gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
                         sessionMap.put(diceNumber, result);
-//                        session.setAttribute("old_dice", sessionMap);
-                        gameState.setMyMap(sessionMap);
+                        session.setAttribute("old_dice", sessionMap);
                         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                     }
                 } else {
@@ -120,12 +124,12 @@ public class GamsServlet extends HttpServlet {
                         gameContext.updateScore(user);
                         user.setEndGame(true);
                         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                        return;
                     }else{
-                        HashMap<Integer, Integer> myMap = gameState.getMyMap();
+                        HashMap<Integer, Integer> myMap = new HashMap<>();
                         myMap.put(diceNumber, result);
                         gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
-//                        session.setAttribute("old_dice", myMap);
-                        gameState.setMyMap(myMap);
+                        session.setAttribute("old_dice", myMap);
                         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                     }
                 }

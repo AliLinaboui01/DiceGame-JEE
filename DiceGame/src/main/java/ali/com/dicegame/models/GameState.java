@@ -10,21 +10,13 @@ public class GameState {
     private boolean gameOver = false;
 
     private List<Message> messages = new ArrayList<Message>();
-    private HashMap<Integer,Integer> myMap = new HashMap<Integer,Integer>();
 
-    public HashMap<Integer, Integer> getMyMap() {
-        return myMap;
-    }
 
-    public void setMyMap(HashMap<Integer, Integer> myMap) {
-        this.myMap = myMap;
-    }
-
-    public void reinit() {
+    public void restart() {
         gameOver = false;
         messages = new ArrayList<Message>();
-        myMap=new HashMap<Integer,Integer>();
         user.setScore(0);
+        user.setEndGame(false);
     }
 
     public String toString() {
