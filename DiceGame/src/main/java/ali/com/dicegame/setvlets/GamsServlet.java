@@ -59,28 +59,30 @@ public class GamsServlet extends HttpServlet {
                 if (session.getAttribute("old_dice") != null) {
                     HashMap<Integer, Integer> sessionMap = (HashMap<Integer, Integer>) session.getAttribute("old_dice");
                         // check the condition of repetition of dice number
-                    for (Map.Entry<Integer,Integer> entry : sessionMap.entrySet()){
-                        if (diceNumber == entry.getKey()){
+                        if (sessionMap.containsKey(diceNumber)){
                             user.setScore(-1);
+                            gameState.getUser().setScore(-1);
+                            gameContext.updateScore(user);
                             gameState.setGameOver(true);
                             gameState.addMessage(new Message("Game Over because you already play with this number ", Message.ERROR));
-                            System.out.println("game over and score -1");
-                            gameContext.updateScore(user);
                             user.setEndGame(true);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                             return;
                         }
                         //if the key is 1 and value is 6 , so end game and return a -1 score
-                        else if (entry.getKey()==1 && entry.getValue()==6) {
-                            user.setScore(0);
-                            gameState.setGameOver(true);
-                            gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
-                            System.out.println("game over and score 0");
-                            user.setEndGame(true);
-                            getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
-                            return;
+                        else if (  sessionMap.containsKey(1) ) {
+                            if( sessionMap.get(1)==6){
+                                user.setScore(0);
+                                gameState.getUser().setScore(0);
+                                gameContext.updateScore(user);
+                                gameState.setGameOver(true);
+                                gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
+                                user.setEndGame(true);
+                                getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                                return;
+                            }
                         }
-                    }
+
 
                     // I want to check if the user is roll 3 dices so ia can check the condition of one < two && one < three
                     if (sessionMap.size() == 2) {
@@ -94,15 +96,16 @@ public class GamsServlet extends HttpServlet {
                         if (one < two && two < three) {
                             int score = one + two + three;
                             user.setScore(score);
-                            gameContext.updateScore(user);
                             gameState.getUser().setScore(score);
+                            gameContext.updateScore(user);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                         }
                         // one < two && one < three is not verified
                         else {
-                            user.setScore(0);
+
                             gameState.addMessage(new Message("one < two && two < three is not verified score(0)", Message.INFO));
-                            gameState.getUser().setScore(0);
+                            user.setScore(-1);
+                            gameState.getUser().setScore(-1);
                             gameContext.updateScore(user);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                             return;
@@ -118,10 +121,10 @@ public class GamsServlet extends HttpServlet {
                     if (diceNumber == 1 && result == 6){
                         gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
                         gameState.setGameOver(true);
-                        gameState.getUser().setScore(-1);
-                        gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
-                        System.out.println("game over and score -1");
+                        user.setScore(0);
+                        gameState.getUser().setScore(0);
                         gameContext.updateScore(user);
+                        gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
                         user.setEndGame(true);
                         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                         return;
