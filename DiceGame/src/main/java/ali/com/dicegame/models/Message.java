@@ -13,6 +13,11 @@ public class Message {
         this.type=type;
     }
 
+    @Override
+    public String toString() {
+        return ""+text;
+    }
+
     public String getText() {
         return text;
     }
@@ -28,4 +33,5 @@ public class Message {
     public void setType(int type) {
         this.type = type;
     }
+
 }

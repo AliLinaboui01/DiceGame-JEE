@@ -21,10 +21,8 @@ public class ApplicationInitializer implements ServletContextListener {
 
         System.out.println("Opération effect");
         List<User> userList = Collections.synchronizedList(new ArrayList<User>());
-        HashMap<Integer,Integer> diceNumberScore = new HashMap<>() ;
-
         ctx.setAttribute("users", userList);
-        ctx.setAttribute("diceNumberScore",diceNumberScore);
+
 
 
 

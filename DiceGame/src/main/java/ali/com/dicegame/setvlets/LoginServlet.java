@@ -42,9 +42,6 @@ public class LoginServlet extends HttpServlet {
 
             // On vérifie que les mots de passe sont identiques
             if (user.getPassword() != null && user.getPassword().equals(password)) {
-                System.out.println(
-                        "good"
-                );
                 // On stocke l'objet stockant l'état de jeu dans la session
                 GameState gameSate = new GameState(user);
                 request.getSession().setAttribute("gameState", gameSate);
@@ -55,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             } else {
 
                 // On ajoute un message
-                messages.add(new Message("Login ou mot de passe incorrect", Message.WARN));
+                messages.add(new Message(" mot de passe incorrect", Message.WARN));
 
                 // Mettre la la liste des messages dans les attributs de la requête
                 request.setAttribute("messages", messages);
@@ -67,7 +64,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } else {
-            messages.add(new Message("Login ou mot de passe incorrect", Message.WARN));
+            messages.add(new Message("Login incorrect", Message.WARN));
             request.setAttribute("messages", messages);
             getServletContext().getRequestDispatcher("/WEB-INF/view/pages/login.jsp").forward(request, response);
         }

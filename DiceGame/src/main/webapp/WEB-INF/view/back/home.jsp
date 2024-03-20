@@ -1,3 +1,6 @@
+<%@ page import="ali.com.dicegame.models.GameState" %>
+<%@ page import="java.util.HashMap" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,15 +9,26 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            rel="stylesheet"
+    />
     <!-- MDB -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet"/>
-    <title>Document</title>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
+            rel="stylesheet"
+    />
 
 </head>
 <body>
+
+
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
     <!-- Container wrapper -->
@@ -135,19 +149,49 @@
 <!-- Navbar -->
 
 <div class="container my-5 w-75">
-    <div class="alert alert-primary" role="alert">
+    <%
+        GameState gameState = (GameState) request.getSession().getAttribute("gameState");
+//        HashMap<Integer,Integer> sessionMap =(HashMap<Integer, Integer>) session.getAttribute("old_dice");
+//        if (gameState != null && gameState.getUser() != null) {
+//            out.print(Math.max(gameState.getUser().getBestScore(), gameState.getUser().getScore()));
+//        }
+
+
+    %>
+    <a href="${pageContext.request.contextPath}/restart" class="btn btn-outline-primary" disabled>Restart Game <i class="fas fa-arrow-rotate-right"></i></a>
+    <div class="alert alert-primary my-2" role="alert">
         you have 3 dices with numbers 1,2 and 3 you can choose one and goo
     </div>
-<form method="post" action="${pageContext.request.contextPath}/play">
+<form class="col-md-6 offset-md-3" method="post" action="${pageContext.request.contextPath}/play">
     <!-- Email input -->
     <div data-mdb-input-init class="form-outline mb-4">
         <input type="number" id="form1Example1" class="form-control" style="background-color:gainsboro" name="diceNumber"/>
         <label class="form-label" for="form1Example1">Dice Number</label>
     </div>
 
+
+
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">roll</button>
+
     <!-- Submit button -->
-    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">roll</button>
+
 </form>
+    <%
+        if(gameState.sizeMessages() >0){
+    %>
+    <div class="alert alert-info my-5" role="alert">
+        <%=gameState%>
+    </div>
+
+    <%
+        }
+    %>
+
+
 </div>
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
+></script>
 </body>
 </html>

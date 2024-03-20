@@ -1,6 +1,7 @@
 package ali.com.dicegame.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameState {
@@ -9,18 +10,26 @@ public class GameState {
     private boolean gameOver = false;
 
     private List<Message> messages = new ArrayList<Message>();
+    private HashMap<Integer,Integer> myMap = new HashMap<Integer,Integer>();
+
+    public HashMap<Integer, Integer> getMyMap() {
+        return myMap;
+    }
+
+    public void setMyMap(HashMap<Integer, Integer> myMap) {
+        this.myMap = myMap;
+    }
 
     public void reinit() {
         gameOver = false;
         messages = new ArrayList<Message>();
+        myMap=new HashMap<Integer,Integer>();
         user.setScore(0);
-
-
     }
 
     public String toString() {
         return "GameState [Score=" + user.getScore() + ", messages="
-                + messages + "]";
+                + messages;
     }
 
     public void addMessage(Message ms) {
@@ -53,5 +62,8 @@ public class GameState {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+    public int sizeMessages(){
+        return messages.size();
     }
 }
