@@ -152,9 +152,9 @@
     <%
         GameState gameState = (GameState) request.getSession().getAttribute("gameState");
 //        HashMap<Integer,Integer> sessionMap =(HashMap<Integer, Integer>) session.getAttribute("old_dice");
-//        if (gameState != null && gameState.getUser() != null) {
-//            out.print(Math.max(gameState.getUser().getBestScore(), gameState.getUser().getScore()));
-//        }
+        if (gameState != null && gameState.getUser() != null) {
+            out.print(Math.max(gameState.getUser().getBestScore(), gameState.getUser().getScore()));
+        }
 
 
     %>
