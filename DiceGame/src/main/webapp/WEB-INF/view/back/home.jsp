@@ -1,5 +1,6 @@
 <%@ page import="ali.com.dicegame.models.GameState" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="ali.com.dicegame.models.User" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
@@ -62,10 +63,10 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/login">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">My Best Score</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/back/bestScore">Best Scores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Best Scores</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
                 </li>
             </ul>
             <!-- Left links -->
@@ -75,10 +76,16 @@
         <!-- Right elements -->
         <div class="d-flex align-items-center">
             <!-- Avatar -->
-            <div class="dropdown">
+            <div class="dropdown d-flex justify-content-between">
+                <%
+                    // Retrieve the user object from the request scope
+                    User user = (User) request.getSession().getAttribute("user");
+                %>
+                <%=user.getName()%>
                 <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
                     <img src="${pageContext.request.contextPath}/images/profile.jpg" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
                 </a>
+
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <li>
                         <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
@@ -114,6 +121,7 @@
     <!-- Submit button -->
 
 </form>
+
     <%
         if(gameState.sizeMessages() >0){
     %>
@@ -124,7 +132,7 @@
     <%
         }
     %>
-
+    <button type="button" class="btn btn-info btn-rounded" data-mdb-ripple-init><%=gameState.getUser().getScore()%></button>
 
 </div>
 <script

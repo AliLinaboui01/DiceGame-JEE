@@ -28,7 +28,7 @@ public class ExceptionFilter extends HttpFilter {
             list.add(new Message("Une erreur est survenue veuillez consulter le fichier journal pour plus de détails",
                     Message.ERROR));
             request.setAttribute("messages", list);
-            getServletContext().getRequestDispatcher("/WEB-INF/vues/pages/error.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/view/pages/error.jsp").forward(request, response);
 
         }
     }

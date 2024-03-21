@@ -1,16 +1,13 @@
 package ali.com.dicegame.filters;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-public class SecurityFilter {
+public class SecurityFilter  implements Filter {
     /** la vue d'authentification */
     private static final String CONNEXION_PAGE = "/WEB-INF/view/pages/login.jsp";
 
