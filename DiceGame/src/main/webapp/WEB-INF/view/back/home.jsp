@@ -23,7 +23,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
             rel="stylesheet"
     />
-
+ <title>Home</title>
 </head>
 <body>
 
@@ -51,22 +51,21 @@
             <!-- Navbar brand -->
             <a class="navbar-brand mt-2 mt-lg-0" href="#">
                 <img
-                        src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
-                        height="15"
-                        alt="MDB Logo"
+                        src="${pageContext.request.contextPath}/images/dice_icon.png"
+                        height="35"
                         loading="lazy"
                 />
             </a>
             <!-- Left links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Dashboard</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Team</a>
+                    <a class="nav-link" href="#">My Best Score</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Projects</a>
+                    <a class="nav-link" href="#">Best Scores</a>
                 </li>
             </ul>
             <!-- Left links -->
@@ -75,69 +74,14 @@
 
         <!-- Right elements -->
         <div class="d-flex align-items-center">
-            <!-- Icon -->
-            <a class="text-reset me-3" href="#">
-                <i class="fas fa-shopping-cart"></i>
-            </a>
-
-            <!-- Notifications -->
-            <div class="dropdown">
-                <a
-                        data-mdb-dropdown-init
-                        class="text-reset me-3 dropdown-toggle hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuLink"
-                        role="button"
-                        aria-expanded="false"
-                >
-                    <i class="fas fa-bell"></i>
-                    <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                </a>
-                <ul
-                        class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuLink"
-                >
-                    <li>
-                        <a class="dropdown-item" href="#">Some news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Another news</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </li>
-                </ul>
-            </div>
             <!-- Avatar -->
             <div class="dropdown">
-                <a
-                        data-mdb-dropdown-init
-                        class="dropdown-toggle d-flex align-items-center hidden-arrow"
-                        href="#"
-                        id="navbarDropdownMenuAvatar"
-                        role="button"
-                        aria-expanded="false"
-                >
-                    <img
-                            src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-                            class="rounded-circle"
-                            height="25"
-                            alt="Black and White Portrait of a Man"
-                            loading="lazy"
-                    />
+                <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
+                    <img src="${pageContext.request.contextPath}/images/profile.jpg" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
                 </a>
-                <ul
-                        class="dropdown-menu dropdown-menu-end"
-                        aria-labelledby="navbarDropdownMenuAvatar"
-                >
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <li>
-                        <a class="dropdown-item" href="#">My profile</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Settings</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -151,12 +95,6 @@
 <div class="container my-5 w-75">
     <%
         GameState gameState = (GameState) request.getSession().getAttribute("gameState");
-//        HashMap<Integer,Integer> sessionMap =(HashMap<Integer, Integer>) session.getAttribute("old_dice");
-        if (gameState != null && gameState.getUser() != null) {
-            out.print(Math.max(gameState.getUser().getBestScore(), gameState.getUser().getScore()));
-        }
-
-
     %>
     <a href="${pageContext.request.contextPath}/restart" class="btn btn-outline-primary" disabled>Restart Game <i class="fas fa-arrow-rotate-right"></i></a>
     <div class="alert alert-primary my-2" role="alert">

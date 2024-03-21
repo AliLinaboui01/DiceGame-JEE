@@ -42,7 +42,7 @@ public class GamsServlet extends HttpServlet {
         } else {
             Random random = new Random();
             // generate the random value of the dice
-            int result = 1 + random.nextInt(6);
+            int result =1+ random.nextInt(6);
             int diceNumber;
             try {
                 // get the number of the dice
@@ -59,30 +59,30 @@ public class GamsServlet extends HttpServlet {
                 if (session.getAttribute("old_dice") != null) {
                     HashMap<Integer, Integer> sessionMap = (HashMap<Integer, Integer>) session.getAttribute("old_dice");
                         // check the condition of repetition of dice number
-                        if (sessionMap.containsKey(diceNumber)){
-                            user.setScore(-1);
-                            gameState.getUser().setScore(-1);
+                    if (sessionMap.containsKey(diceNumber)){
+                        user.setScore(-1);
+                        gameState.getUser().setScore(-1);
+                        gameContext.updateScore(user);
+                        gameState.setGameOver(true);
+                        gameState.addMessage(new Message("Game Over because you already play with this number ", Message.ERROR));
+                        user.setEndGame(true);
+                        getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                        return;
+                    }
+
+                        //if the key is 1 and value is 6 , so end game and return a -1 score
+                        else if ( sessionMap.containsKey(1) ) {
+                        if( sessionMap.get(1)==6){
+                            user.setScore(0);
+                            gameState.getUser().setScore(0);
                             gameContext.updateScore(user);
                             gameState.setGameOver(true);
-                            gameState.addMessage(new Message("Game Over because you already play with this number ", Message.ERROR));
+                            gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
                             user.setEndGame(true);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                             return;
                         }
-                        //if the key is 1 and value is 6 , so end game and return a -1 score
-                        else if (  sessionMap.containsKey(1) ) {
-                            if( sessionMap.get(1)==6){
-                                user.setScore(0);
-                                gameState.getUser().setScore(0);
-                                gameContext.updateScore(user);
-                                gameState.setGameOver(true);
-                                gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
-                                user.setEndGame(true);
-                                getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
-                                return;
-                            }
-                        }
-
+                    }
 
                     // I want to check if the user is roll 3 dices so ia can check the condition of one < two && one < three
                     if (sessionMap.size() == 2) {

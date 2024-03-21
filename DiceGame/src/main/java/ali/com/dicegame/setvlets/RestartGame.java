@@ -21,11 +21,9 @@ public class RestartGame extends HttpServlet {
         if (gameState != null ) {
             gameState.restart();
             System.out.println("restart here ");
-
         }
-        session.setAttribute("old_dice", new HashMap<>());
+        session.setAttribute("old_dice", null);
         getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request, response);
-        return;
     }
 
     @Override

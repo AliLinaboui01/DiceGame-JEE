@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +20,14 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+        HttpSession session = req.getSession();
+        GameState gameState = (GameState) session.getAttribute("gameState");
+        if (gameState != null ) {
+            gameState.restart();
+            System.out.println("restart here ");
+        }
+        session.setAttribute("old_dice", null);
+        getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(req,resp);
     }
 
     @Override
