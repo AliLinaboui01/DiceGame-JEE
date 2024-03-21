@@ -27,15 +27,14 @@ public class GamsServlet extends HttpServlet {
         GameContextManagement gameContext = GameContextManagement.getInstance(getServletContext());
         // check if the game is finish
         if (user.isEndGame()) {
-            //is game over
-            if (!gameState.isGameOver()) {
                 // set the best score by comparing between last score and the last best score
                 if (user.getScore() > user.getBestScore()) {
                     user.setBestScore(user.getScore());
                     gameContext.updateScore(user);
+                    System.out.println(user.getScore());
                 }
                 gameState.setGameOver(true);
-            }
+
             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
             // end
             return;
@@ -99,6 +98,11 @@ public class GamsServlet extends HttpServlet {
                             gameState.getUser().setScore(score);
                             gameContext.updateScore(user);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                            if (user.getScore() > user.getBestScore()) {
+                                user.setBestScore(user.getScore());
+                                gameContext.updateScore(user);
+                                System.out.println(user.getScore());
+                            }
                         }
                         // one < two && one < three is not verified
                         else {
