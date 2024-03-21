@@ -31,7 +31,7 @@
                                 </div>
 
                                 <h6 class="h5 mb-0">Welcome back!</h6>
-                                <p class="text-muted mt-2 mb-5">Enter your email address and password to access admin panel.</p>
+                                <p class="text-muted mt-2 mb-5">Enter your email address and password .</p>
 
                                 <form method="post" action="${pageContext.request.contextPath}/login">
                                     <div class="form-group">
@@ -53,7 +53,6 @@
                                 <div class="account-testimonial">
                                     <h4 class="text-white mb-4">This  beautiful theme yours!</h4>
                                     <p class="lead text-white">"Best investment i made for a long time. Can only recommend it for other users."</p>
-                                    <p>- Admin User</p>
                                 </div>
                             </div>
                         </div>
