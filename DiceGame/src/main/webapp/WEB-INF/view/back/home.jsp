@@ -2,6 +2,8 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="ali.com.dicegame.models.User" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="ali.com.dicegame.models.Message" %>
+<%@ page import="java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
@@ -51,7 +53,6 @@
  <title>Home</title>
 </head>
 <body>
-
 
 
 <!-- Navbar -->
@@ -137,8 +138,6 @@
                     height="105"
                     loading="lazy"
             />
-<%--            <p class="h3 font-weight-bold">Dice Game</p>--%>
-
         </div>
 
         <div class="nes-field m-4">
@@ -170,8 +169,6 @@
 
 
         }
-
-
     %>
     <div class="d-flex justify-content-center">
         <div class="img m-5">
@@ -202,17 +199,6 @@
             <%}%>
         </div>
     </div>
-
-<%--    <%--%>
-<%--        if(gameState.sizeMessages() >0){--%>
-<%--    %>--%>
-<%--    <div class="alert alert-info my-5" role="alert">--%>
-<%--        <%=gameState%>--%>
-<%--    </div>--%>
-<%--    <%--%>
-<%--        }--%>
-<%--    %>--%>
-<%--    <button type="button" class="btn btn-info btn-rounded" data-mdb-ripple-init><%=gameState.getUser().getScore()%></button>--%>
     <%
         if(gameState.getUser().getScore()>0){
     %>
@@ -221,8 +207,19 @@
             <span class="is-success"> great your score is : <%=gameState.getUser().getScore()%></span>
         </a>
     </div>
-    <%}
-    %>
+    <%}else if(!gameState.getMessages().isEmpty()){
+            List<Message> messages = gameState.getMessages();
+            for (Message message:messages){
+                if (message.getType()==2){
+
+                %>
+    <div class="container nes-badge ">
+        <a href="${pageContext.request.contextPath}/login" class="">
+            <span class="is-error"> <%=message.getText()%>  Try Again</span>
+        </a>
+    </div>
+    <%
+        }}}%>
 
 </div>
 <script

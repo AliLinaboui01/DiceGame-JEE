@@ -1,10 +1,4 @@
-<%@ page import="ali.com.dicegame.models.User" %><%--
-  Created by IntelliJ IDEA.
-  User: HAMZA
-  Date: 2024/03/21
-  Time: 00:21
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="ali.com.dicegame.models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -42,10 +36,6 @@
     <title>Best Score Page</title>
 </head>
 <body>
-
-
-
-
 
 <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 60px">
     <!-- Container wrapper -->
@@ -115,44 +105,7 @@
     <!-- Container wrapper -->
 </nav>
 <div class="container my-5 d-flex d-flex flex-row mb-3 flex-wrap ">
-    <!--
-<table class="table align-middle mb-0 bg-white">
-    <thead class="bg-light">
-    <tr>
-        <th>Name</th>
-        <th>Score</th>
-
-    </tr>
-    </thead>
-    <tbody>
-    -->
     <c:forEach items="${requestScope.users}" var="user">
-        <!--
-        <tr>
-        <td>
-        <div class="d-flex align-items-center">
-        <img
-        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-        alt=""
-        style="width: 45px; height: 45px"
-        class="rounded-circle"
-        />
-        <div class="ms-3">
-        <p class="fw-bold mb-1">${user.name}</p>
-        <p class="text-muted mb-0">${user.email}</p>
-        </div>
-        </div>
-        </td>
-
-        <td>
-        <span class="badge badge-success rounded-pill d-inline">${user.bestScore}</span>
-        </td>
-
-
-        -->
-
-
-
         <div class=" mt-5 m-3">
 
             <div class="card p-3">
@@ -173,17 +126,9 @@
                             <div class="d-flex flex-column">
 
                                 <span class="articles">Play</span>
-                                <span class="number1">38</span>
+                                <span class="number1">${user.numberOfPlaying}</span>
 
                             </div>
-                            <!--
-                                                        <div class="d-flex flex-column">
-
-                                                            <span class="followers">Followers</span>
-                                                            <span class="number2">980</span>
-
-                                                        </div>
-                            -->
 
                             <div class="d-flex flex-column">
 
@@ -194,16 +139,6 @@
 
                         </div>
 
-                        <!--
-                                                <div class="button mt-2 d-flex flex-row align-items-center">
-
-                                                    <button class="btn btn-sm btn-outline-primary w-100">Chat</button>
-                                                    <button class="btn btn-sm btn-primary w-100 ml-2">Follow</button>
-
-
-                                                </div>
-                        -->
-
                     </div>
 
 
@@ -213,10 +148,7 @@
 
         </div>
     </c:forEach>
-    <!--
-        </tbody>
-    </table>
-    -->
+
 </div>
 <!-- MDB -->
 <script
