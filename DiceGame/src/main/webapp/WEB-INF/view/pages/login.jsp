@@ -19,19 +19,27 @@
 <body>
 
 <div id="main-wrapper" class="container">
+
     <div class="row justify-content-center">
         <div class="col-xl-10">
             <div class="card border-0">
                 <div class="card-body p-0">
                     <div class="row no-gutters">
                         <div class="col-lg-6">
+                            <div class="d-flex justify-content-center m-5">
+                                <img
+                                        src="${pageContext.request.contextPath}/images/diceLogo.png"
+                                        height="105"
+                                        loading="lazy"
+                                />
+                            </div>
                             <div class="p-5">
                                 <div class="mb-5">
-                                    <h3 class="h4 font-weight-bold text-theme">Login</h3>
+                                    <h3 class="h4 font-weight-bold text-theme text-center">Login</h3>
                                 </div>
 
-                                <h6 class="h5 mb-0">Welcome back!</h6>
-                                <p class="text-muted mt-2 mb-5">Enter your email address and password .</p>
+<%--                                <h6 class="h5 mb-0">Welcome back!</h6>--%>
+<%--                                <p class="text-muted mt-2 mb-5">Enter your email address and password .</p>--%>
 
                                 <form method="post" action="${pageContext.request.contextPath}/login">
                                     <div class="form-group">
@@ -49,11 +57,11 @@
 
                         <div class="col-lg-6 d-none d-lg-inline-block">
                             <div class="account-block rounded-right">
-                                <div class="overlay rounded-right"></div>
-                                <div class="account-testimonial">
-                                    <h4 class="text-white mb-4">This  beautiful theme yours!</h4>
-                                    <p class="lead text-white">"Best investment i made for a long time. Can only recommend it for other users."</p>
-                                </div>
+                                <div class="overlay rounded-right"><img style="height: 100%;width: 100%" src="${pageContext.request.contextPath}/images/login_img.jpg"></div>
+<%--                                <div class="account-testimonial">--%>
+<%--                                    <h4 class="text-white mb-4">This  beautiful theme yours!</h4>--%>
+<%--                                    <p class="lead text-white">"Best investment i made for a long time. Can only recommend it for other users."</p>--%>
+<%--                                </div>--%>
                             </div>
                         </div>
                     </div>

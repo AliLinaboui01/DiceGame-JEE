@@ -22,7 +22,7 @@
                                     <h6 class="mb-0">Full name</h6>
                                 </div>
                                 <div class="col-md-9 pe-5">
-                                    <input type="text" class="form-control form-control-lg" name="name"/>
+                                    <input type="text" class="form-control form-control-lg" name="name" required/>
                                 </div>
                             </div>
                             <hr class="mx-n3">
@@ -31,7 +31,7 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-md-9 pe-5">
-                                    <input type="email" class="form-control form-control-lg" name="email" />
+                                    <input type="email" class="form-control form-control-lg" name="email" required/>
                                 </div>
                             </div>
                             <hr class="mx-n3">
@@ -40,7 +40,7 @@
                                     <h6 class="mb-0">Password</h6>
                                 </div>
                                 <div class="col-md-9 pe-5">
-                                    <input type="password" class="form-control form-control-lg" name="password" />
+                                    <input type="password" class="form-control form-control-lg" name="password" required/>
                                 </div>
                             </div>
                             <hr class="mx-n3">
