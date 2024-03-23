@@ -7,9 +7,18 @@ public class User {
     private double score;
     private double bestScore;
     private boolean endGame = false;
+    private int numberOfPlaying;
 
+    public int getNumberOfPlaying() {
+        return numberOfPlaying;
+    }
 
-
+    public void setNumberOfPlaying(int numberOfPlaying) {
+        this.numberOfPlaying = numberOfPlaying;
+    }
+    public void incrementNumberOfPlaying(){
+        numberOfPlaying++;
+    }
     public User() {
     }
 
