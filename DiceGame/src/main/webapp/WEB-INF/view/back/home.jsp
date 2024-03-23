@@ -1,6 +1,7 @@
 <%@ page import="ali.com.dicegame.models.GameState" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="ali.com.dicegame.models.User" %>
+<%@ page import="java.util.Map" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html lang="en">
@@ -9,12 +10,22 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./node_modules/nes.css/css/nes.min.css">
     <!-- Font Awesome -->
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
             rel="stylesheet"
     />
     <!-- Google Fonts -->
+    <!-- minify -->
+    <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+    <!-- latest -->
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <!-- core style only -->
+    <link href="https://unpkg.com/nes.css/css/nes-core.min.css" rel="stylesheet" />
     <link
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
             rel="stylesheet"
@@ -24,6 +35,19 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css"
             rel="stylesheet"
     />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        .press-start {
+            font-family: "Press Start 2P", system-ui;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .links {
+            font-family: "Press Start 2P", system-ui;
+            font-weight: 10;
+            font-style: normal;
+        }
+    </style>
  <title>Home</title>
 </head>
 <body>
@@ -31,7 +55,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary " style="height: 60px">
     <!-- Container wrapper -->
     <div class="container-fluid">
         <!-- Toggle button -->
@@ -48,25 +72,26 @@
         </button>
 
         <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <!-- Navbar brand -->
-            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+            <a class="navbar-brand mt-2 mt-lg-0  " href="${pageContext.request.contextPath}/login">
                 <img
-                        src="${pageContext.request.contextPath}/images/dice_icon.png"
-                        height="35"
+                        src="${pageContext.request.contextPath}/images/diceLogo.png"
+                        height="55"
                         loading="lazy"
                 />
+                <p class="press-start ">Dice Game</p>
             </a>
             <!-- Left links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/login">Home</a>
+                    <a class="nav-link links" href="${pageContext.request.contextPath}/login">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/back/bestScore">Best Scores</a>
+                    <a class="nav-link links" href="${pageContext.request.contextPath}/back/bestScore">Best Scores</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/logout">Logout</a>
+                    <a class="nav-link links" href="${pageContext.request.contextPath}/logout">Logout</a>
                 </li>
             </ul>
             <!-- Left links -->
@@ -81,8 +106,8 @@
                     // Retrieve the user object from the request scope
                     User user = (User) request.getSession().getAttribute("user");
                 %>
-                <%=user.getName()%>
-                <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
+                <p class="links p-5"><%=user.getName()%></p>
+                <a data-mdb-dropdown-init class="dropdown-toggle d-flex align-items-center hidden-arrow " href="#" id="navbarDropdownMenuAvatar" role="button" aria-expanded="false">
                     <img src="${pageContext.request.contextPath}/images/profile.jpg" class="rounded-circle" height="25" alt="Black and White Portrait of a Man" loading="lazy"/>
                 </a>
 
@@ -103,36 +128,101 @@
     <%
         GameState gameState = (GameState) request.getSession().getAttribute("gameState");
     %>
-    <a href="${pageContext.request.contextPath}/restart" class="btn btn-outline-primary" disabled>Restart Game <i class="fas fa-arrow-rotate-right"></i></a>
-    <div class="alert alert-primary my-2" role="alert">
-        you have 3 dices with numbers 1,2 and 3 you can choose one and goo
-    </div>
-<form class="col-md-6 offset-md-3" method="post" action="${pageContext.request.contextPath}/play">
-    <!-- Email input -->
-    <div data-mdb-input-init class="form-outline mb-4">
-        <input type="number" id="form1Example1" class="form-control" style="background-color:gainsboro" name="diceNumber"/>
-        <label class="form-label" for="form1Example1">Dice Number</label>
-    </div>
+    <a href="${pageContext.request.contextPath}/restart" class="nes-btn is-primary" disabled>Restart Game <i class="fas fa-arrow-rotate-right"></i></a>
+    <form class="col-md-6 offset-md-3 " method="post" action="${pageContext.request.contextPath}/play">
+        <!-- Email input -->
+        <div class="d-flex justify-content-center">
+            <img
+                    src="${pageContext.request.contextPath}/images/diceLogo.png"
+                    height="105"
+                    loading="lazy"
+            />
+<%--            <p class="h3 font-weight-bold">Dice Game</p>--%>
 
+        </div>
 
-
-        <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">roll</button>
-
-    <!-- Submit button -->
-
-</form>
-
+        <div class="nes-field m-4">
+            <label for="name_field">Dice Number</label>
+            <input type="number" id="name_field" class="nes-input" name="diceNumber">
+        </div>
+        <button data-mdb-ripple-init type="submit"  class="nes-btn is-primary btn-block">roll the dice</button>
+        <!-- Submit button -->
+    </form>
     <%
-        if(gameState.sizeMessages() >0){
-    %>
-    <div class="alert alert-info my-5" role="alert">
-        <%=gameState%>
-    </div>
+        int res_dice1=0;
+        int res_dice2=0;
+        int res_dice3=0;
+        if (request.getSession().getAttribute("old_dice")!=null){
+            HashMap<Integer,Integer> sessionMap = (HashMap<Integer, Integer>) request.getSession().getAttribute("old_dice");
+            for (Map.Entry<Integer,Integer> entry : sessionMap.entrySet()){
+                if (entry.getKey()==1){
+                    res_dice1 = entry.getValue();
+                    request.setAttribute("res_dice1", res_dice1);
 
-    <%
+                }else if (entry.getKey()==2){
+                    res_dice2 = entry.getValue();
+                    request.setAttribute("res_dice2", res_dice2);
+                }else if(entry.getKey()==3){
+                    res_dice3=entry.getValue();
+                    request.setAttribute("res_dice3", res_dice3);
+                }
+            }
+
+
         }
+
+
     %>
-    <button type="button" class="btn btn-info btn-rounded" data-mdb-ripple-init><%=gameState.getUser().getScore()%></button>
+    <div class="d-flex justify-content-center">
+        <div class="img m-5">
+            <% if (res_dice1==0){
+            %>
+                <img src="${pageContext.request.contextPath}/images/marck.png">
+            <% }else{%>
+                <img src="${pageContext.request.contextPath}/images/dice/${res_dice1}.png" height="96px" width="96px">
+
+            <%}%>
+        </div>
+        <div class="img m-5">
+            <% if (res_dice2==0){
+            %>
+            <img src="${pageContext.request.contextPath}/images/marck.png">
+            <% }else{%>
+            <img src="${pageContext.request.contextPath}/images/dice/${res_dice2}.png " height="96px" width="96px">
+
+            <%}%>
+        </div>
+        <div class="img m-5">
+            <% if (res_dice3==0){
+            %>
+            <img src="${pageContext.request.contextPath}/images/marck.png">
+            <% }else{%>
+            <img src="${pageContext.request.contextPath}/images/dice/${res_dice3}.png" height="96px" width="96px">
+
+            <%}%>
+        </div>
+    </div>
+
+<%--    <%--%>
+<%--        if(gameState.sizeMessages() >0){--%>
+<%--    %>--%>
+<%--    <div class="alert alert-info my-5" role="alert">--%>
+<%--        <%=gameState%>--%>
+<%--    </div>--%>
+<%--    <%--%>
+<%--        }--%>
+<%--    %>--%>
+<%--    <button type="button" class="btn btn-info btn-rounded" data-mdb-ripple-init><%=gameState.getUser().getScore()%></button>--%>
+    <%
+        if(gameState.getUser().getScore()>0){
+    %>
+    <div class="d-flex justify-content-center">
+        <a href="#" class="nes-badge ">
+            <span class="is-success"> great your score is : <%=gameState.getUser().getScore()%></span>
+        </a>
+    </div>
+    <%}
+    %>
 
 </div>
 <script

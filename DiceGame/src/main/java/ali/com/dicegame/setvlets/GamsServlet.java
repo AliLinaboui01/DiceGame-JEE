@@ -52,6 +52,7 @@ public class GamsServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
                 return;
             }
+
             // here I want  to check if the number of dice is 1 , 2 or 3
             if (diceNumber >= 1 && diceNumber <= 3) {
                 // if the session is not null, so I can check the condition of repetition of dice number
@@ -72,6 +73,7 @@ public class GamsServlet extends HttpServlet {
                         //if the key is 1 and value is 6 , so end game and return a -1 score
                         else if ( sessionMap.containsKey(1) ) {
                         if( sessionMap.get(1)==6){
+                            gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
                             user.setScore(0);
                             gameState.getUser().setScore(0);
                             gameContext.updateScore(user);
@@ -79,6 +81,7 @@ public class GamsServlet extends HttpServlet {
                             gameState.addMessage(new Message("End game the value of dice number 1 is 6 so the condition never verified", Message.ERROR));
                             user.setEndGame(true);
                             getServletContext().getRequestDispatcher("/WEB-INF/view/back/home.jsp").forward(request,response);
+                            System.out.println("End game the value of dice number 1 is 6 so the condition never verified");
                             return;
                         }
                     }
@@ -87,6 +90,7 @@ public class GamsServlet extends HttpServlet {
                     if (sessionMap.size() == 2) {
                         sessionMap.put(diceNumber, result);
                         gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
+                        session.setAttribute("dice_res",result);
                         gameState.addMessage(new Message("Game Over", Message.INFO));
                         user.setEndGame(true);
                         int one = sessionMap.get(1);
@@ -123,6 +127,7 @@ public class GamsServlet extends HttpServlet {
                 } else {
                     // the session is vide so the first lance can be 6 with key 1 , I can check this  here
                     if (diceNumber == 1 && result == 6){
+                        System.out.println("End game the value of dice number 1 is 6 so the condition never verified");
                         gameState.addMessage(new Message(String.valueOf(result),Message.INFO));
                         gameState.setGameOver(true);
                         user.setScore(0);
